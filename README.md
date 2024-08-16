@@ -1,73 +1,45 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Esse repósitorio é dedicado a resolver o desafio da [BackendBrasil](https://github.com/backend-br/desafios?tab=readme-ov-file)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Estou desenvolvendo o projeto usando as seguintes tecnologias:
 
-## Description
+- TypeScript
+- NestJS
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Obs: Ainda não implementei o banco de dados, por enquanto está tudo Mockado(estou utilizando informações que eu mesmo coloquei como teste), mas logo irei adicionar o banco de dados e implementar o Update e o Delete.
 
-## Installation
+# Criptografia
 
-```bash
-$ npm install
-```
+Seu desafio será implementar a criptografia em um serviço de forma transparente para a API e para as camadas de
+serviço de sua aplicação. O objetivo é garantir que os campos sensíveis dos objetos de entidade não sejam visíveis
+diretamente, realizando a criptografia em tempo de execução durante a conversão da entidade para a coluna correspondente
+no banco de dados, e vice-versa.
 
-## Running the app
+## Exemplo
 
-```bash
-# development
-$ npm run start
+Considere os campos `userDocument` e `creditCardToken` como campos sensíveis que devem ser criptografados. A tabela de
+exemplo seria a seguinte:
 
-# watch mode
-$ npm run start:dev
+| id  | userDocument     | creditCardToken | value |
+| :-- | :--------------- | :-------------- | :---- |
+| 1   | MzYxNDA3ODE4MzM= | YWJjMTIz        | 5999  |
+| 2   | MzI5NDU0MTA1ODM= | eHl6NDU2        | 1000  |
+| 3   | NzYwNzc0NTIzODY= | Nzg5eHB0bw==    | 1500  |
 
-# production mode
-$ npm run start:prod
-```
+A estrutura da entidade correspondente seria a seguinte:
 
-## Test
+| Campo           | Tipo   |
+| :-------------- | :----- |
+| id              | Long   |
+| userDocument    | String |
+| creditCardToken | String |
+| value           | Long   |
 
-```bash
-# unit tests
-$ npm run test
+## Requisitos
 
-# e2e tests
-$ npm run test:e2e
+- Implemente um CRUD simples considerando os campos mencionados acima como sensíveis.
+- Utilize o algoritmo de criptografia de sua preferência. Sugestões: [SHA-512](https://en.wikipedia.org/wiki/SHA-2) ou
+  [PBKDF2](https://en.wikipedia.org/wiki/PBKDF2).
 
-# test coverage
-$ npm run test:cov
-```
+## Soluções
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-  Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Neste [tópico](SOLUTIONS.md), você encontrará soluções para esse desafio, feitas por outros membros da comunidade.
