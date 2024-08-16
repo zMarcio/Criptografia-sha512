@@ -7,6 +7,8 @@ Estou desenvolvendo o projeto usando as seguintes tecnologias:
 
 Obs: Ainda não implementei o banco de dados, por enquanto está tudo Mockado(estou utilizando informações que eu mesmo coloquei como teste), mas logo irei adicionar o banco de dados e implementar o Update e o Delete.
 
+Abaixo está a explicação do desafio.
+
 # Criptografia
 
 Seu desafio será implementar a criptografia em um serviço de forma transparente para a API e para as camadas de
