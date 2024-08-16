@@ -1,35 +1,35 @@
-import { data_document_and_token } from 'src/Interface/data';
+import { data_document_and_token } from "src/Interface/data";
 
-export class User {
-  id: Number;
+export class UserDTO {
+  id?: Number;
   userDocument: String;
   creditCardToken: String;
-  value: Number;
+  value?: Number;
   constructor(
-    id: Number,
     userDocument: String,
     creditCardToken: String,
-    value: Number,
+    id?: Number,
+    value?: Number
   ) {
-    this.id = id;
+    if (id) this.id = id;
     this.userDocument = userDocument;
     this.creditCardToken = creditCardToken;
-    this.value = value;
+    if (value) this.value = value;
   }
 
   encrypt(): data_document_and_token {
-    const crypt = require('crypto');
+    const crypt = require("crypto");
     const data_userDocument = crypt
-      .createHash('sha512')
+      .createHash("sha512")
       .update(this.userDocument)
-      .digest('hex');
+      .digest("hex");
 
     const data_creditCardToken = crypt
-      .createHash('sha512')
-      .update(this.creditCardToken) // Corrected line: update creditCardToken
-      .digest('hex');
+      .createHash("sha512")
+      .update(this.creditCardToken)
+      .digest("hex");
 
-    const data = {
+    const data: data_document_and_token = {
       userDocument: data_userDocument,
       creditCardToken: data_creditCardToken,
     };

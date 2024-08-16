@@ -11,12 +11,23 @@ const common_1 = require("@nestjs/common");
 const userDto_1 = require("./DTO-User/userDto");
 let AppService = class AppService {
     getHello() {
-        const user = new userDto_1.User(1, 'userDocument', 'creditCardToken', 100);
-        const data = user.encrypt();
-        return {
-            userDocument: data.userDocument,
-            creditCardToken: data.creditCardToken,
-        };
+        return "Hello World!";
+    }
+    encryptUser(User) {
+        const UserCreate = new userDto_1.UserDTO(User.document, User.cardToken, User.id, User.value);
+        const { userDocument, creditCardToken } = UserCreate.encrypt();
+        return `userDocument: ${userDocument}, creditCardToken: ${creditCardToken}`;
+    }
+    compareUser(User) {
+        const mockUser = new userDto_1.UserDTO("testing", "5567", 1, 4500);
+        const { userDocument, creditCardToken } = mockUser.encrypt();
+        const realUser = new userDto_1.UserDTO(User.document, User.cardToken);
+        const info_1 = realUser.encrypt().userDocument;
+        const info_2 = realUser.encrypt().creditCardToken;
+        if (userDocument == info_1 && creditCardToken == info_2) {
+            return "User is the same";
+        }
+        return "User is not the same";
     }
 };
 exports.AppService = AppService;

@@ -1,4 +1,6 @@
-import { data_document_and_token } from './Interface/data';
+import { userInterfaceLogin, userInterfaceCreate } from "./Interface/user-interface";
 export declare class AppService {
-    getHello(): data_document_and_token;
+    getHello(): string;
+    encryptUser(User: userInterfaceCreate): string;
+    compareUser(User: userInterfaceLogin): string;
 }
