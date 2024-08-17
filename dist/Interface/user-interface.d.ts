@@ -1,5 +1,4 @@
 export interface userInterfaceCreate {
-    id: number;
     document: string;
     cardToken: string;
     value: number;
@@ -12,4 +11,7 @@ export interface userInterfacePatch {
     document: string;
     cardToken: string;
     value: number;
+}
+export interface userInterfaceDelete {
+    cardToken: string;
 }

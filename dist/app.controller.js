@@ -22,34 +22,33 @@ let AppController = class AppController {
     getHello() {
         return this.appService.getHello();
     }
-    postUser(User) {
-        return this.appService.encryptUser(User);
+    getAllData() {
+        return this.appService.getAllData();
     }
-    CompareUser(User) {
-        return this.appService.compareUser(User);
+    postUser(User) {
+        return this.appService.postEncryptUser(User);
     }
 };
 exports.AppController = AppController;
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.Get)("/api/hello"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", String)
 ], AppController.prototype, "getHello", null);
 __decorate([
-    (0, common_1.Post)("/test"),
+    (0, common_1.Get)("/api/allData"),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "getAllData", null);
+__decorate([
+    (0, common_1.Post)("/api/createUser"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", String)
 ], AppController.prototype, "postUser", null);
-__decorate([
-    (0, common_1.Post)("/compare"),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", String)
-], AppController.prototype, "CompareUser", null);
 exports.AppController = AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService])
