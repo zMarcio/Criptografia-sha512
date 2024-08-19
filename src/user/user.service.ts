@@ -74,4 +74,14 @@ export class UserService {
 
     return false;
   }
+
+  async getById(id: number): Promise<userInterfaceCreate> {
+    const user = await this.userModel.findByPk(id);
+
+    if (user) {
+      return user;
+    }
+
+    return null;
+  }
 }

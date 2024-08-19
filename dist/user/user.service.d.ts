@@ -8,4 +8,5 @@ export declare class UserService {
     comparateUser(document: any, cardToken: any): Promise<boolean>;
     patchUser(id: number, userData: Partial<userInterfacePatch>): Promise<Boolean>;
     deleteUser(id: number): Promise<Boolean>;
+    getById(id: number): Promise<userInterfaceCreate>;
 }

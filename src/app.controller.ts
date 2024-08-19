@@ -27,10 +27,17 @@ export class AppController {
     return this.appService.getHello();
   }
 
+  // Get by id route
+  @Get("/api/getById/:id")
+  async getById(@Param("id") id: string): Promise<userInterfaceCreate> {
+    const idNumber: number = parseInt(id);
+    return await this.appService.getById(idNumber);
+  }
+
   // Get all data route
   @Get("/api/allData")
-  getAllData(): Promise<userInterfaceCreate[]> {
-    return this.appService.getAllData();
+  async getAllData(): Promise<userInterfaceCreate[]> {
+    return await this.appService.getAllData();
   }
 
   // Sign up route

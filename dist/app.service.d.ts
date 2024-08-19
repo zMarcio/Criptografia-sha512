@@ -5,6 +5,7 @@ export declare class AppService {
     private readonly UserService;
     constructor(UserService: UserService);
     getHello(): string;
+    getById(id: number): Promise<userInterfaceCreate>;
     getAllData(): Promise<userInterfaceCreate[]>;
     postCreateUser(User: userInterfaceCreate): Promise<data_document_and_token>;
     postLoginUser(User: userInterfaceLogin): Promise<Boolean>;

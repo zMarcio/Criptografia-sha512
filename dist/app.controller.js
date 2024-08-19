@@ -22,8 +22,12 @@ let AppController = class AppController {
     getHello() {
         return this.appService.getHello();
     }
-    getAllData() {
-        return this.appService.getAllData();
+    async getById(id) {
+        const idNumber = parseInt(id);
+        return await this.appService.getById(idNumber);
+    }
+    async getAllData() {
+        return await this.appService.getAllData();
     }
     async postUser(user, response) {
         try {
@@ -129,6 +133,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", String)
 ], AppController.prototype, "getHello", null);
+__decorate([
+    (0, common_1.Get)("/api/getById/:id"),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "getById", null);
 __decorate([
     (0, common_1.Get)("/api/allData"),
     __metadata("design:type", Function),

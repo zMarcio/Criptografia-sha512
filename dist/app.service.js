@@ -20,8 +20,11 @@ let AppService = class AppService {
     getHello() {
         return "Hello World!";
     }
-    getAllData() {
-        return this.UserService.getAllData();
+    async getById(id) {
+        return await this.UserService.getById(id);
+    }
+    async getAllData() {
+        return await this.UserService.getAllData();
     }
     async postCreateUser(User) {
         const { document, cardToken } = this.encryptVariable(User.document, User.cardToken);

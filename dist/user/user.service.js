@@ -65,6 +65,13 @@ let UserService = class UserService {
         }
         return false;
     }
+    async getById(id) {
+        const user = await this.userModel.findByPk(id);
+        if (user) {
+            return user;
+        }
+        return null;
+    }
 };
 exports.UserService = UserService;
 exports.UserService = UserService = __decorate([

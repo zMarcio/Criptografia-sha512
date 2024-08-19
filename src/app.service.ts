@@ -20,9 +20,14 @@ export class AppService {
     return "Hello World!";
   }
 
+  // Get by id
+  async getById(id: number): Promise<userInterfaceCreate> {
+    return await this.UserService.getById(id);
+  }
+
   // All data
-  getAllData(): Promise<userInterfaceCreate[]> {
-    return this.UserService.getAllData();
+  async getAllData(): Promise<userInterfaceCreate[]> {
+    return await this.UserService.getAllData();
   }
 
   // Create user
