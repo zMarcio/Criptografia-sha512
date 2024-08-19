@@ -4,8 +4,17 @@ Estou desenvolvendo o projeto usando as seguintes tecnologias:
 
 - TypeScript
 - NestJS
+- Sequelize (ORM)
+- MySQL (Banco de dados)
 
-Obs: Ainda não implementei o banco de dados, por enquanto está tudo Mockado(estou utilizando informações que eu mesmo coloquei como teste), mas logo irei adicionar o banco de dados e implementar o Update e o Delete.
+# Endpoints (http://localhost:3000) :
+  -  /api/allData (Get de todos os dados)
+  -  /api/getById/:id (Get por id)
+  -  /api/createUser (Post criando e encripitando document e card token)
+  -  /api/loginUser (Post de login)
+  -  /api/modifiedUser/:id (Patch modificando o document e card token)
+  -  /api/deleteUser/:id (Delete por id)
+
 
 Abaixo está a explicação do desafio.
 
