@@ -7,7 +7,7 @@ Estou desenvolvendo o projeto usando as seguintes tecnologias:
 - Sequelize (ORM)
 - MySQL (Banco de dados)
 
-# Endpoints (http://localhost:3000) :
+# Endpoints (localhost:3000) :
   -  /api/allData (Get de todos os dados)
   -  /api/getById/:id (Get por id)
   -  /api/createUser (Post criando e encripitando document e card token)
