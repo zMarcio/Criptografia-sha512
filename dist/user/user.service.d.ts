@@ -5,4 +5,5 @@ export declare class UserService {
     constructor(userModel: typeof User);
     getAllData(): Promise<User[]>;
     createUser(userData: Partial<userInterfaceCreate>): Promise<User>;
+    comparateUser(document: any, cardToken: any): Promise<boolean>;
 }

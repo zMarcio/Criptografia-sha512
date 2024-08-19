@@ -25,8 +25,48 @@ let AppController = class AppController {
     getAllData() {
         return this.appService.getAllData();
     }
-    postUser(User) {
-        return this.appService.postEncryptUser(User);
+    postUser(user, response) {
+        try {
+            const data = this.appService.postEncryptUser(user);
+            return response.json({
+                message: "User created successfully",
+                status: 201,
+                Document: data.document,
+                CardToken: data.cardToken,
+            });
+        }
+        catch (error) {
+            return response.json({
+                message: error.message,
+                status: 400,
+            });
+        }
+    }
+    CompareUser(User, response) {
+        try {
+            const data = this.appService.postLoginEncryptUser(User);
+            if (data) {
+                return response.json({
+                    message: "Login sucessfull",
+                    status: 200,
+                });
+            }
+            return response.json({
+                message: "Login failed",
+                status: 400,
+            });
+        }
+        catch (error) {
+            return response.json({
+                message: error.message,
+                status: 400,
+            });
+        }
+    }
+    patchUser(id, User) {
+        try {
+        }
+        catch (error) { }
     }
 };
 exports.AppController = AppController;
@@ -45,10 +85,27 @@ __decorate([
 __decorate([
     (0, common_1.Post)("/api/createUser"),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", String)
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Object)
 ], AppController.prototype, "postUser", null);
+__decorate([
+    (0, common_1.Post)("/api/loginUser"),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Object)
+], AppController.prototype, "CompareUser", null);
+__decorate([
+    (0, common_1.Patch)("/api/modifiedUser/:id"),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Object)
+], AppController.prototype, "patchUser", null);
 exports.AppController = AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService])

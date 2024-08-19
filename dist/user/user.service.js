@@ -29,6 +29,18 @@ let UserService = class UserService {
         const user = await this.userModel.create(userData);
         return user;
     }
+    async comparateUser(document, cardToken) {
+        const user = await this.userModel.findOne({
+            where: {
+                document,
+                cardToken,
+            },
+        });
+        if (user) {
+            return true;
+        }
+        return false;
+    }
 };
 exports.UserService = UserService;
 exports.UserService = UserService = __decorate([

@@ -27,7 +27,14 @@ let AppService = class AppService {
         const { document, cardToken } = this.encryptVariable(User.document, User.cardToken);
         const UserCreate = new userDto_1.UserDTO(document, cardToken, User.value);
         this.UserService.createUser(UserCreate);
-        return `document: ${document}, cardToken: ${cardToken}`;
+        return { document, cardToken };
+    }
+    postLoginEncryptUser(User) {
+        const { document, cardToken } = this.encryptVariable(User.document, User.cardToken);
+        const dataDB = this.UserService.comparateUser(document, cardToken);
+        if (dataDB)
+            return true;
+        return false;
     }
     encryptVariable(document, cardToken) {
         const crypt = require("crypto");
