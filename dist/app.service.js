@@ -23,15 +23,47 @@ let AppService = class AppService {
     getAllData() {
         return this.UserService.getAllData();
     }
-    postEncryptUser(User) {
+    async postCreateUser(User) {
         const { document, cardToken } = this.encryptVariable(User.document, User.cardToken);
         const UserCreate = new userDto_1.UserDTO(document, cardToken, User.value);
-        this.UserService.createUser(UserCreate);
-        return { document, cardToken };
+        const dataDB = await this.UserService.createUser(UserCreate);
+        if (dataDB) {
+            console.log(dataDB);
+            return { document, cardToken };
+        }
+        return null;
     }
-    postLoginEncryptUser(User) {
+    async postLoginUser(User) {
         const { document, cardToken } = this.encryptVariable(User.document, User.cardToken);
-        const dataDB = this.UserService.comparateUser(document, cardToken);
+        const dataDB = await this.UserService.comparateUser(document, cardToken);
+        if (dataDB)
+            return true;
+        return false;
+    }
+    async patchUser(id, User) {
+        if (id === null)
+            return null;
+        if (User === null)
+            return null;
+        if (id === null && User === null)
+            return null;
+        const document = User.document;
+        const cardToken = User.cardToken;
+        const data = this.encryptVariable(document, cardToken);
+        const UserPatch = new userDto_1.UserDTO(data.document, data.cardToken, User.value);
+        const dataDB = await this.UserService.patchUser(id, UserPatch);
+        if (dataDB)
+            return {
+                document: data.document,
+                cardToken: data.cardToken,
+                value: User.value,
+            };
+        return null;
+    }
+    async deleteUser(id) {
+        if (id === null)
+            return false;
+        const dataDB = await this.UserService.deleteUser(id);
         if (dataDB)
             return true;
         return false;

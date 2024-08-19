@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Put,
   Res,
 } from "@nestjs/common";
 import { AppService } from "./app.service";
@@ -34,10 +35,19 @@ export class AppController {
 
   // Sign up route
   @Post("/api/createUser")
-  postUser(@Body() user: userInterfaceCreate, @Res() response): Object {
+  async postUser(
+    @Body() user: userInterfaceCreate,
+    @Res() response
+  ): Promise<Object> {
     try {
       const data: data_document_and_token =
-        this.appService.postEncryptUser(user);
+        await this.appService.postCreateUser(user);
+
+      if (data === null)
+        return response.json({
+          message: "User already exists",
+          status: 400,
+        });
 
       return response.json({
         message: "User created successfully",
@@ -55,9 +65,12 @@ export class AppController {
 
   // Sign in route
   @Post("/api/loginUser")
-  CompareUser(@Body() User: userInterfaceLogin, @Res() response): Object {
+  async CompareUser(
+    @Body() User: userInterfaceLogin,
+    @Res() response
+  ): Promise<Object> {
     try {
-      const data: Boolean = this.appService.postLoginEncryptUser(User);
+      const data: Boolean = await this.appService.postLoginUser(User);
 
       if (data) {
         return response.json({
@@ -79,15 +92,68 @@ export class AppController {
   }
 
   // Update user route
-  @Patch("/api/modifiedUser/:id")
-  patchUser(@Param("id") id: string, @Body() User: userInterfacePatch): Object {
+  @Patch("api/modifiedUser/:id")
+  async patchUser(
+    @Param("id") id: string,
+    @Body() User: userInterfacePatch,
+    @Res() response
+  ) {
     try {
-    } catch (error) {}
+      const idNumber: number = parseInt(id);
+      const data = await this.appService.patchUser(idNumber, User);
+
+      if (data) {
+        return response.json({
+          message: "User updated successfully",
+          status: 200,
+          document: data.document,
+          cardToken: data.cardToken,
+          value: data.value,
+        });
+      } else if (data === null) {
+        return response.json({
+          message: "User not found",
+          status: 400,
+        });
+      }
+      return response.json({
+        message: "User not found",
+        status: 400,
+      });
+    } catch (error) {
+      return response.json({
+        message: error.message,
+        status: 400,
+      });
+    }
   }
 
   // Delete user route
-  // @Delete("/api/deleteUser")
-  // deleteUser(@Body() User: userInterfaceDelete): string {
-  //   return "sucessfull";
-  // }
+  @Delete("/api/deleteUser/:id")
+  async deleteUser(
+    @Param("id") id: string,
+    @Body() User: userInterfaceDelete,
+    @Res() response
+  ): Promise<string> {
+    try {
+      const idNumber: number = parseInt(id);
+      const data = await this.appService.deleteUser(idNumber);
+      if (data) {
+        return response.json({
+          message: "User deleted successfully",
+          status: 200,
+        });
+      }
+
+      return response.json({
+        message: "User not found",
+        status: 400,
+      });
+    } catch (error) {
+      return response.json({
+        message: error.message,
+        status: 400,
+      });
+    }
+  }
 }

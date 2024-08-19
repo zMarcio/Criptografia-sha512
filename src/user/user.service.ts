@@ -1,6 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
-import { userInterfaceCreate } from "src/Interface/user-interface";
+import {
+  userInterfaceCreate,
+  userInterfacePatch,
+} from "src/Interface/user-interface";
 import { User } from "src/model/user.model";
 
 @Injectable()
@@ -15,21 +18,57 @@ export class UserService {
     return data;
   }
 
-  async createUser(userData: Partial<userInterfaceCreate>): Promise<User> {
-    console.log("userData:", userData);
-    const user = await this.userModel.create(userData);
-    return user;
+  async createUser(userData: Partial<userInterfaceCreate>): Promise<Boolean> {
+    const userVerify = await this.userModel.findOne({
+      where: {
+        document: userData.document,
+        cardToken: userData.cardToken,
+      },
+    });
+
+    if (userVerify) {
+      return false;
+    }
+
+    await this.userModel.create(userData);
+
+    return true;
   }
 
   async comparateUser(document, cardToken): Promise<boolean> {
     const user = await this.userModel.findOne({
       where: {
-        document,
-        cardToken,
+        document: document,
+        cardToken: cardToken,
       },
     });
 
     if (user) {
+      return true;
+    }
+
+    return false;
+  }
+
+  async patchUser(
+    id: number,
+    userData: Partial<userInterfacePatch>
+  ): Promise<Boolean> {
+    const user = await this.userModel.findByPk(id);
+
+    if (user) {
+      await user.update(userData);
+      return true;
+    }
+
+    return false;
+  }
+
+  async deleteUser(id: number): Promise<Boolean> {
+    const user = await this.userModel.findByPk(id);
+
+    if (user) {
+      await user.destroy();
       return true;
     }
 

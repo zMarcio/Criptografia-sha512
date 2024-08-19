@@ -25,18 +25,42 @@ let UserService = class UserService {
         return data;
     }
     async createUser(userData) {
-        console.log("userData:", userData);
-        const user = await this.userModel.create(userData);
-        return user;
+        const userVerify = await this.userModel.findOne({
+            where: {
+                document: userData.document,
+                cardToken: userData.cardToken,
+            },
+        });
+        if (userVerify) {
+            return false;
+        }
+        await this.userModel.create(userData);
+        return true;
     }
     async comparateUser(document, cardToken) {
         const user = await this.userModel.findOne({
             where: {
-                document,
-                cardToken,
+                document: document,
+                cardToken: cardToken,
             },
         });
         if (user) {
+            return true;
+        }
+        return false;
+    }
+    async patchUser(id, userData) {
+        const user = await this.userModel.findByPk(id);
+        if (user) {
+            await user.update(userData);
+            return true;
+        }
+        return false;
+    }
+    async deleteUser(id) {
+        const user = await this.userModel.findByPk(id);
+        if (user) {
+            await user.destroy();
             return true;
         }
         return false;

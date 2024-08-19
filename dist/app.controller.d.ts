@@ -1,11 +1,12 @@
 import { AppService } from "./app.service";
-import { userInterfaceLogin, userInterfaceCreate, userInterfacePatch } from "./Interface/user-interface";
+import { userInterfaceLogin, userInterfaceCreate, userInterfacePatch, userInterfaceDelete } from "./Interface/user-interface";
 export declare class AppController {
     private readonly appService;
     constructor(appService: AppService);
     getHello(): string;
     getAllData(): Promise<userInterfaceCreate[]>;
-    postUser(user: userInterfaceCreate, response: any): Object;
-    CompareUser(User: userInterfaceLogin, response: any): Object;
-    patchUser(id: string, User: userInterfacePatch): Object;
+    postUser(user: userInterfaceCreate, response: any): Promise<Object>;
+    CompareUser(User: userInterfaceLogin, response: any): Promise<Object>;
+    patchUser(id: string, User: userInterfacePatch, response: any): Promise<any>;
+    deleteUser(id: string, User: userInterfaceDelete, response: any): Promise<string>;
 }
