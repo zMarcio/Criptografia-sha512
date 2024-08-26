@@ -50,7 +50,3 @@ A estrutura da entidade correspondente seria a seguinte:
 - Implemente um CRUD simples considerando os campos mencionados acima como sensíveis.
 - Utilize o algoritmo de criptografia de sua preferência. Sugestões: [SHA-512](https://en.wikipedia.org/wiki/SHA-2) ou
   [PBKDF2](https://en.wikipedia.org/wiki/PBKDF2).
-
-## Soluções
-
-Neste [tópico](SOLUTIONS.md), você encontrará soluções para esse desafio, feitas por outros membros da comunidade.
